@@ -71,11 +71,14 @@ def main_menu() -> int:
         print('main_menu() is working.')
         print('1. Display Customers')
         print('2. Display Contacts')
+        print('3. Display Contacts of One Customer')
+        print('4. Add and Update Customers')
+        print('5. Add and Update Contacts')
         print('0. Exit')
 
         meni_item = input('Upisite broj ispred funkcionalnosti koju zelite napraviti: ')
 
-        if meni_item.isdigit(): # isdigit = True i za broj 123456 koejg nema u izborniku!!!
+        if meni_item.isdigit() and int(meni_item) < 6: # isdigit = True i za broj 123456 koejg nema u izborniku!!!
             return int(meni_item)
         else:
             print('Neispravan unos! Pokusajte ponovno.')
@@ -93,13 +96,73 @@ def display_contacts():
     for contact in contacts:
         print(f'{contact['id']}, {contact_full_name(contact)}')
 
+def display_contacts_one_customer():
+    for customer in customers:
+        print()
+        print(f'Kontakti {customer['name']} su sljedeći: ', end='')
+        for contact in contacts:
+            if contact['id'] in customer['contacts']:
+                #print(f'Kontakti {customer['name']} su sljedeći:')
+                print(f'{contact_full_name(contact)} ', end='')
+        print()
+
+def add_contacts():
+    contact = {}
+
+    while True:
+        
+        new_con_id = contacts[-1]['id']+1
+        contact['id'] = new_con_id
+        contact['first_name'] = input('Upisite ime kontakta: ')
+        contact['last_name'] = input('Upisite prezime kontakata:')
+        contact['phone'] = input('Upisite telefon novog kontakta: ')
+        contact['email'] = input('Upisite email novog kontakta: ')
+
+        new_contact = input('Zelite li dodati novi kontakt (Da/Ne): ')
+        if new_contact.lower() != 'da':
+            break
+        else:
+            ('Za nastavak upisite ENTER.')
+        
+    contacts.append(contact)
+
+
 #endregion
 
 #region CUSTOMERS MODUL
 
 def display_customers():
     print('display_customers() iz working!')
-
+    for customer in customers:
+        print(f'{str(customer['id'])}, {customer['name']}, {customer['vat_id']}')
+        
+def add_customers():
+    while True:
+        customer = {
+            'contacts':[]
+        }
+        
+        new_customer_id = customers[-1]['id']+1
+        customer['id'] = int(new_customer_id)
+        customer['name'] = input('Upisite ime novog kupca: ')
+        customer['vat_id'] = input('Upisite vat_id novog kupca: ')
+        while True:
+            contact_id = input('Upisite id kontakata kupca: ')
+            contacts.append(int(contact_id))
+            customer['contacts'] = contacts
+            new_contact_id = input('Zelite li dodati novi kontakt kupca (Da/Ne): ')
+            if new_contact_id.lower() != 'da':
+                break
+            else:
+                input('Za nastavak pritisnite tipku ENTER.')
+        new_customer = input('Zelite li dodati novog kupca (Da/Ne): ')
+        if new_customer != 'da':
+            break
+        else:
+            input('Za nastavak pritisnite tipku ENTER.')
+    customers.append(customer)
+    
+    
 #endregion
 
 
@@ -117,6 +180,18 @@ def main():
             input('Za nastavak pritisnite tipku ENTER! ')
         elif menu_item == 2:
             display_contacts()
+            print()
+            input('Za nastavak pritisnite tipku ENTER! ')
+        elif menu_item == 3:
+            display_contacts_one_customer()
+            print()
+            input('Za nastavak pritisnite tipku ENTER! ')
+        elif menu_item == 4:
+            add_customers()
+            print()
+            input('Za nastavak pritisnite tipku ENTER! ')
+        elif menu_item == 5:
+            add_contacts()
             print()
             input('Za nastavak pritisnite tipku ENTER! ')
         else:
