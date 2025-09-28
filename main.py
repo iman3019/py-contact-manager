@@ -129,8 +129,7 @@ def update_contacts():
     while True:
         contact = {}
         display_contacts()
-        for index, key in enumerate(contacts[0].keys()):
-            print(index +1, key)
+        
         contact_to_update = input('Upisite broj ispred kontakta kojeg zelite azurirati: ')
         
         if contact_to_update.isdigit() and int(contact_to_update) > 1 and int(contact_to_update) < len(contacts):
@@ -212,12 +211,11 @@ def update_customers():
             input('Za nastavak pritisnite tipku ENTER.')
     customers[int(customer_to_update)-1]=customer
 
-
-
-    
-    
 #endregion
 
+def go_on():
+    print()
+    input('Za nastavak pritisnite tipku ENTER!')
 
 def main():
     while True:
@@ -229,32 +227,25 @@ def main():
             return
         elif menu_item == 1:
             display_customers()
-            print()
-            input('Za nastavak pritisnite tipku ENTER! ')
+            go_on()
         elif menu_item == 2:
             display_contacts()
-            print()
-            input('Za nastavak pritisnite tipku ENTER! ')
+            go_on()
         elif menu_item == 3:
             display_contacts_one_customer()
-            print()
-            input('Za nastavak pritisnite tipku ENTER! ')
+            go_on()
         elif menu_item == 4:
             add_customers()
-            print()
-            input('Za nastavak pritisnite tipku ENTER! ')
+            go_on()
         elif menu_item == 5:
             add_contacts()
-            print()
-            input('Za nastavak pritisnite tipku ENTER! ')
+            go_on()
         elif menu_item == 6:
             update_customers()
-            print()
-            input('Za nastavak pritisnite tipku ENTER! ')
+            go_on()
         elif menu_item == 7:
             update_contacts()
-            print()
-            input('Za nastavak pritisnite tipku ENTER! ')
+            go_on()
         else:
             print(menu_item)
             input()
