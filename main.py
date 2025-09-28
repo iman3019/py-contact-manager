@@ -183,6 +183,36 @@ def add_customers():
         else:
             input('Za nastavak pritisnite tipku ENTER.')
     customers.append(customer)
+
+def update_customers():
+    while True:
+        display_customers()
+        
+        customer = {
+            'contacts':[]
+        }
+        customer_to_update = input('Upisite broj ispred kupca kojeg zelite azurirati: ')
+        if customer_to_update.isdigit() and int(customer_to_update) > 0 and int(customer_to_update) < len(customers):
+            customer['id'] = customer_to_update
+            customer['name'] = input('Azurirajte ime kupca: ')
+            customer['vat_id'] = input('Azurirajte vat_id kupca: ')
+        while True:
+            contact_id = input('Azurirajte id kontakta kupca: ')
+            customer['contacts'].append(int(contact_id))
+            new_contact_id = input('Zelite li azurirati id jos jednog kontakta kupca (Da/Ne): ')
+            if new_contact_id.lower() != 'da':
+                break
+            else:
+                input('Za nastavak pritisnite tipku ENTER.')
+        new_customer = input('Zelite li azurirati podatke o jos jednom kupcu (Da/Ne): ')
+        if new_customer != 'da':
+            break
+        else:
+            input('Za nastavak pritisnite tipku ENTER.')
+    customers[int(customer_to_update)-1]=customer
+
+
+
     
     
 #endregion
