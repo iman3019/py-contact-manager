@@ -60,25 +60,29 @@ customers = [
 
 def clear_display() -> None:
     os.system('cls') if os.name == 'nt' else os.system('clear')
-    print('clear_display() is working')
+    #print('clear_display() is working')
     
 
 def main_menu() -> int:
     while True:
         # Ocisti ekran -> funkcija clear_display()
         clear_display()
-
-        print('main_menu() is working.')
+        print('Dobro dosli u aplikaciju')
+        print()
+        print('***CONTACT MANAGER***')
+        print()
+        #print('main_menu() is working.')
         print('1. Display Customers')
         print('2. Display Contacts')
         print('3. Display Contacts of One Customer')
         print('4. Add Customer')
+
         print('5. Add Contacts')
         print('6. Update Customer')
         print('7. Update Contacts')
         print('0. Exit')
-
-        meni_item = input('Upisite broj ispred funkcionalnosti koju zelite napraviti: ')
+        print()
+        meni_item = input('Upisite broj ispred funkcionalnosti koju zelite koristiti: ')
 
         if meni_item.isdigit() and int(meni_item) < 8: # isdigit = True i za broj 123456 koejg nema u izborniku!!!
             return int(meni_item)
@@ -95,6 +99,9 @@ def contact_full_name(contact: Dict) -> str:
 
 
 def display_contacts():
+    print()
+    print('Kontakti tvrtki kupaca su sljedeci:')
+    print()
     for contact in contacts:
         print(f'{contact['id']}, {contact_full_name(contact)}')
 
@@ -104,7 +111,10 @@ def display_contacts_one_customer():
         print(f'Kontakti {customer['name']} su sljedeći: ', end='')
         for contact in contacts:
             if contact['id'] in customer['contacts']:
-                print(f'{contact_full_name(contact)} ', end='')
+                if contact['id'] == customer['contacts'][-1]:
+                    print(f'{contact_full_name(contact)}.', end='')    
+                else:
+                    print(f'{contact_full_name(contact)}, ', end='')
         print()
 
 def add_contacts():
@@ -132,7 +142,7 @@ def update_contacts():
         
         contact_to_update = input('Upisite broj ispred kontakta kojeg zelite azurirati: ')
         
-        if contact_to_update.isdigit() and int(contact_to_update) > 1 and int(contact_to_update) < len(contacts):
+        if contact_to_update.isdigit() and int(contact_to_update) > 1 and int(contact_to_update) < contacts[-1]['id']:
             contact['id'] = contact_to_update
             contact['first_name'] = input('Azurirajte ime kontakta: ')
             contact['last_name'] = input('Azurirajte prezime kontakta: ')
@@ -156,9 +166,12 @@ def update_contacts():
 #region CUSTOMERS MODUL
 
 def display_customers():
-    print('display_customers() iz working!')
+    #print('display_customers() iz working!')
+    print()
+    print('Popis tvrtki kupaca je sljedeci:')
+    print()
     for customer in customers:
-        print(f'{customer['id']}, {customer['name']}, {customer['vat_id']}, {customer['contacts'][0]},')
+        print(f'{customer['id']}, {customer['name']}, {customer['vat_id']}')
         
 def add_customers():
     while True:
@@ -192,7 +205,7 @@ def update_customers():
             'contacts':[]
         }
         customer_to_update = input('Upisite broj ispred kupca kojeg zelite azurirati: ')
-        if customer_to_update.isdigit() and int(customer_to_update) > 0 and int(customer_to_update) < len(customers):
+        if customer_to_update.isdigit() and int(customer_to_update) > 0 and int(customer_to_update) < customers[-1]['id']:
             customer['id'] = customer_to_update
             customer['name'] = input('Azurirajte ime kupca: ')
             customer['vat_id'] = input('Azurirajte vat_id kupca: ')
@@ -203,6 +216,7 @@ def update_customers():
             if new_contact_id.lower() != 'da':
                 break
             else:
+                print('Neispravan unos. Pokusajte ponovno.')
                 input('Za nastavak pritisnite tipku ENTER.')
         new_customer = input('Zelite li azurirati podatke o jos jednom kupcu (Da/Ne): ')
         if new_customer != 'da':
