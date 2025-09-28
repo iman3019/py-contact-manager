@@ -129,7 +129,8 @@ def update_contacts():
     while True:
         contact = {}
         display_contacts()
-        
+        for index, key in enumerate(contacts[0].keys()):
+            print(index +1, key)
         contact_to_update = input('Upisite broj ispred kontakta kojeg zelite azurirati: ')
         
         if contact_to_update.isdigit() and int(contact_to_update) > 1 and int(contact_to_update) < len(contacts):
