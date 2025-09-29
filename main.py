@@ -136,13 +136,15 @@ def add_contacts():
     contacts.append(contact)
 
 def update_contacts():
+    print(len(contacts))
+    
     while True:
         contact = {}
         display_contacts()
         
         contact_to_update = input('Upisite broj ispred kontakta kojeg zelite azurirati: ')
         
-        if contact_to_update.isdigit() and int(contact_to_update) > 1 and int(contact_to_update) < contacts[-1]['id']:
+        if contact_to_update.isdigit() and int(contact_to_update) > 1 and int(contact_to_update) and int(contact_to_update) <= contacts[-1]['id']:
             contact['id'] = contact_to_update
             contact['first_name'] = input('Azurirajte ime kontakta: ')
             contact['last_name'] = input('Azurirajte prezime kontakta: ')
@@ -205,7 +207,7 @@ def update_customers():
             'contacts':[]
         }
         customer_to_update = input('Upisite broj ispred kupca kojeg zelite azurirati: ')
-        if customer_to_update.isdigit() and int(customer_to_update) > 0 and int(customer_to_update) < customers[-1]['id']:
+        if customer_to_update.isdigit() and int(customer_to_update) > 0 and int(customer_to_update) <= customers[-1]['id']:
             customer['id'] = customer_to_update
             customer['name'] = input('Azurirajte ime kupca: ')
             customer['vat_id'] = input('Azurirajte vat_id kupca: ')
