@@ -144,7 +144,7 @@ def update_contacts():
         
         contact_to_update = input('Upisite broj ispred kontakta kojeg zelite azurirati: ')
         
-        if contact_to_update.isdigit() and int(contact_to_update) > 1 and int(contact_to_update) and int(contact_to_update) <= contacts[-1]['id']:
+        if contact_to_update.isdigit() and int(contact_to_update) > 1 and int(contact_to_update) <= contacts[-1]['id']:
             contact['id'] = contact_to_update
             contact['first_name'] = input('Azurirajte ime kontakta: ')
             contact['last_name'] = input('Azurirajte prezime kontakta: ')
